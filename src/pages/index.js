@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react"
+import React, { useState, useCallback, useRef } from "react"
 import SEO from '../components/seo'
 import { Grid, Paper, TextField, FormControl, Select, MenuItem, InputLabel, Button, Snackbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -82,7 +82,7 @@ const IndexPage = () => {
   const [name, setName] = useState('')
   const [departementId, setDepartementId] = useState(null)
   const [country, setCountry] = useState(null)
-  const [picture, setPicture] = useState(null)
+  const inputPicture = useRef(null)
 
   const onSubmit = useCallback(() => {
     const body = new FormData()
@@ -91,7 +91,7 @@ const IndexPage = () => {
       body.append('name', name)
       body.append('departementId', departementId)
       body.append('country', country)
-      body.append('picture', picture)
+      body.append('picture', inputPicture.current.files[0])
 
       console.log(picture)
 
@@ -122,9 +122,7 @@ const IndexPage = () => {
       })
   }, [nik])
 
-  const handlePicture = (e) => {
-    setPicture(e.target.files[0])
-  }
+
 
   return (
     <React.Fragment>
@@ -187,7 +185,7 @@ const IndexPage = () => {
                 }
               </Select>
             </FormControl>
-            <input type='file' onChange={handlePicture} />
+            <input type='file' ref={inputPicture} />
             <Button color='primary' variant='contained' className={classes.ButtonSubmit} disabled={!valid} onClick={onSubmit}>
               Submint
             </Button>
