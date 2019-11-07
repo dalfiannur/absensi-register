@@ -86,26 +86,25 @@ const IndexPage = () => {
 
   const onSubmit = useCallback(() => {
     const body = new FormData()
-    if (picture !== null) {
-      body.append('nik', nik)
-      body.append('name', name)
-      body.append('departementId', departementId)
-      body.append('country', country)
-      body.append('picture', inputPicture.current.files[0])
 
-      console.log(picture)
+    body.append('nik', nik)
+    body.append('name', name)
+    body.append('departementId', departementId)
+    body.append('country', country)
+    body.append('picture', inputPicture.current.files[0])
 
-      fetch(`${URL}/register`, {
-        method: 'POST',
-        body
+    console.log(inputPicture.current.files[0])
+
+    fetch(`${URL}/register`, {
+      method: 'POST',
+      body
+    })
+      .then(() => {
+        console.log('success')
       })
-        .then(() => {
-          console.log('success')
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    }
+      .catch(error => {
+        console.log(error)
+      })
   }, [nik, name, departementId, country])
 
   const checkNIK = useCallback(() => {
