@@ -80,17 +80,17 @@ const IndexPage = () => {
   const [registered, setRegistered] = useState(true)
   const [nik, setNIK] = useState('')
   const [name, setName] = useState('')
-  const [departement, setDepartement] = useState('')
+  const [departementId, setDepartementId] = useState(null)
   const [country, setCountry] = useState(null)
-  const [picture, setPicture] = useState([])
+  const [picture, setPicture] = useState(null)
 
   const onSubmit = useCallback(() => {
     const body = new FormData()
     body.append('nik', nik)
     body.append('name', name)
-    body.append('depardement', departement)
+    body.append('departementId', departementId)
     body.append('country', country)
-    body.append('picture', picture[0])
+    body.append('picture', picture)
 
     console.log(picture)
 
@@ -104,7 +104,7 @@ const IndexPage = () => {
       .catch(error => {
         console.log(error)
       })
-  }, [nik, name, departement, country])
+  }, [nik, name, departementId, country])
 
   const checkNIK = useCallback(() => {
     fetch(`${URL}/nik/${nik}`)
@@ -119,6 +119,10 @@ const IndexPage = () => {
         }
       })
   }, [nik])
+
+  const handlePicture = (e) => {
+    setPicture(e.target.files[0])
+  }
 
   return (
     <React.Fragment>
@@ -152,9 +156,9 @@ const IndexPage = () => {
               <Select
                 labelId="input-departement-label"
                 id="input-departement"
-                value={departement}
+                value={departementId}
                 fullWidth
-                onChange={e => setDepartement(e.target.value)}
+                onChange={e => setDepartementId(e.target.value)}
               >
                 {
                   Departements.map(item => (
@@ -181,7 +185,7 @@ const IndexPage = () => {
                 }
               </Select>
             </FormControl>
-            <input type='file' onChange={e => setPicture(e.target)} />
+            <input type='file' onChange={handlePicture} />
             <Button color='primary' variant='contained' className={classes.ButtonSubmit} disabled={!valid} onClick={onSubmit}>
               Submint
             </Button>
