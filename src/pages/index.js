@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react"
+import React, { useState, useCallback, useRef } from "react"
 import SEO from '../components/seo'
 import { Grid, Paper, TextField, FormControl, Select, MenuItem, InputLabel, Button, Snackbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -25,19 +25,20 @@ const IndexPage = () => {
   const [registered, setRegistered] = useState(true)
   const [nik, setNIK] = useState('')
   const [name, setName] = useState('')
-  const [departement, setDepartement] = useState('')
+  const [departementId, setDepartementId] = useState(null)
   const [country, setCountry] = useState(null)
-  const [picture, setPicture] = useState([])
+  const inputPicture = useRef(null)
 
   const onSubmit = useCallback(() => {
     const body = new FormData()
+
     body.append('nik', nik)
     body.append('name', name)
-    body.append('depardement', departement)
+    body.append('departementId', departementId)
     body.append('country', country)
-    body.append('picture', picture[0])
+    body.append('picture', inputPicture.current.files[0])
 
-    console.log(picture)
+    console.log(inputPicture.current.files[0])
 
     fetch(`${URL}/register`, {
       method: 'POST',
@@ -49,7 +50,7 @@ const IndexPage = () => {
       .catch(error => {
         console.log(error)
       })
-  }, [nik, name, departement, country])
+  }, [nik, name, departementId, country])
 
   const checkNIK = useCallback(() => {
     fetch(`${URL}/nik/${nik}`)
@@ -64,6 +65,8 @@ const IndexPage = () => {
         }
       })
   }, [nik])
+
+
 
   return (
     <React.Fragment>
@@ -97,9 +100,9 @@ const IndexPage = () => {
               <Select
                 labelId="input-departement-label"
                 id="input-departement"
-                value={departement}
+                value={departementId}
                 fullWidth
-                onChange={e => setDepartement(e.target.value)}
+                onChange={e => setDepartementId(e.target.value)}
               >
                 {
                   Departements.map(item => (
@@ -126,7 +129,7 @@ const IndexPage = () => {
                 }
               </Select>
             </FormControl>
-            <input type='file' onChange={e => setPicture(e.target)} />
+            <input type='file' ref={inputPicture} />
             <Button color='primary' variant='contained' className={classes.ButtonSubmit} disabled={!valid} onClick={onSubmit}>
               Submit
             </Button>
