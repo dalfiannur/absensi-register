@@ -3,6 +3,8 @@ import SEO from '../components/seo'
 import { Grid, Paper, TextField, FormControl, Select, MenuItem, InputLabel, Button, Snackbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import SuccessDialog from '../components/SuccessDialog'
+import { Countries } from '../data/Countries'
+import { Departements } from '../data/Departements'
 
 const URL = 'https://barcode-attendance-system.herokuapp.com'
 const useStyle = makeStyles(theme => ({
@@ -15,63 +17,6 @@ const useStyle = makeStyles(theme => ({
   }
 }))
 
-const Departements = [
-  {
-    id: 1,
-    name: 'WH RPMP'
-  },
-  {
-    id: 2,
-    name: 'WH FG'
-  },
-  {
-    id: 3,
-    name: 'PPPC & PREPARASI PLANT'
-  },
-  {
-    id: 4,
-    name: 'PRODUKSI'
-  },
-  {
-    id: 5,
-    name: 'MAINTENANCE'
-  },
-  {
-    id: 6,
-    name: 'PPIC'
-  },
-  {
-    id: 7,
-    name: 'PROCUREMENT'
-  },
-  {
-    id: 8,
-    name: 'TPP'
-  },
-  {
-    id: 9,
-    name: 'PMD'
-  },
-  {
-    id: 10,
-    name: 'IT'
-  },
-  {
-    id: 11,
-    name: 'COSTING'
-  },
-  {
-    id: 12,
-    name: 'MS'
-  },
-]
-
-const Countries = [
-  {
-    value: 'indonesia',
-    text: 'Indonesia'
-  }
-]
 
 const IndexPage = () => {
   const classes = useStyle()
@@ -190,7 +135,7 @@ const IndexPage = () => {
             </FormControl>
             <input type='file' ref={inputPicture} />
             <Button color='primary' variant='contained' className={classes.ButtonSubmit} disabled={!valid} onClick={onSubmit}>
-              Submint
+              Submit
             </Button>
           </Paper>
         </Grid>
