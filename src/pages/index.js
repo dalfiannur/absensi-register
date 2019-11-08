@@ -2,6 +2,7 @@ import React, { useState, useCallback, useRef } from "react"
 import SEO from '../components/seo'
 import { Grid, Paper, TextField, FormControl, Select, MenuItem, InputLabel, Button, Snackbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import SuccessDialog from '../components/SuccessDialog'
 
 const URL = 'https://barcode-attendance-system.herokuapp.com'
 const useStyle = makeStyles(theme => ({
@@ -75,6 +76,8 @@ const Countries = [
 const IndexPage = () => {
   const classes = useStyle()
 
+  const [openSuccessDialog, setOpenSuccessDialog] = useState(false)
+
   const [valid, setValid] = useState(false)
   const [success, setSuccess] = useState(false)
   const [registered, setRegistered] = useState(true)
@@ -93,14 +96,15 @@ const IndexPage = () => {
     body.append('country', country)
     body.append('picture', inputPicture.current.files[0])
 
-    console.log(inputPicture.current.files[0])
-
     fetch(`${URL}/register`, {
       method: 'POST',
       body
     })
       .then(() => {
-        console.log('success')
+        setOpenSuccessDialog(true)
+        setTimeout(() => {
+          setOpenSuccessDialog(false)
+        }, 4000)
       })
       .catch(error => {
         console.log(error)
@@ -191,15 +195,9 @@ const IndexPage = () => {
           </Paper>
         </Grid>
       </Grid>
-      <Snackbar
-        open={success}
-        message={<p>User successfully registered</p>}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        autoHideDuration={6000}
-        onClose={() => setSuccess(false)} />
+      <SuccessDialog
+        open={openSuccessDialog}
+        onClose={() => setOpenSuccessDialog(false)} />
     </React.Fragment>
   )
 }
