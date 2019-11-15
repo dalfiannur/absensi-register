@@ -110,7 +110,7 @@ const IndexPage = () => {
                       <div className='card-item__name'>Dea Pratiwi Putri</div>
                     </label>
                     <div class='card-item__date'>
-                      <img alt={nik} src={barcode} width='350' height='100' />
+                      <img alt={nik} src={barcode} />
                     </div>
                   </div>
                 </div>
