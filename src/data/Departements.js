@@ -53,11 +53,11 @@ export const Departements = [
   },
   {
     id: 14,
-    name: 'HR'
+    name: 'HCD KN'
   },
   {
     id: 15,
-    name: 'GA'
+    name: 'GA KN'
   },
   {
     id: 16,
@@ -69,7 +69,7 @@ export const Departements = [
   },
   {
     id: 18,
-    name: 'QA SUPPLY CHAIN'
+    name: 'QA SCM'
   },
   {
     id: 19,
@@ -78,5 +78,13 @@ export const Departements = [
   {
     id: 20,
     name: 'MANAJEMEN'
+  },
+  {
+    id: 21,
+    name: 'HR GA PLANT'
+  },
+  {
+    id: 22,
+    name: 'CMD'
   },
 ]
