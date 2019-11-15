@@ -1,3 +1,4 @@
+import React from 'react'
 import { Dialog, DialogTitle, DialogContentText } from '@material-ui/core'
 import { useStyle } from './style'
 
