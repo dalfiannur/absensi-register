@@ -1,9 +1,13 @@
-import React, { useState, useCallback, useRef } from "react"
+import React, { useState, useCallback, useRef, useMemo } from "react"
 import SEO from '../components/seo'
 import { Grid, Paper, TextField, FormControl, Select, MenuItem, InputLabel, Button, Snackbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { Countries} from '../data/Countries'
+import SuccessDialog from '../components/SuccessDialog'
+import { Countries } from '../data/Countries'
 import { Departements } from '../data/Departements'
+import JsBarcode from 'jsbarcode'
+import { createCanvas } from 'canvas'
+import './index.scss'
 
 const URL = 'https://barcode-attendance-system.herokuapp.com'
 const useStyle = makeStyles(theme => ({
@@ -17,15 +21,17 @@ const useStyle = makeStyles(theme => ({
   }
 }))
 
-
 const IndexPage = () => {
   const classes = useStyle()
+
+  const [openSuccessDialog, setOpenSuccessDialog] = useState(false)
 
   const [valid, setValid] = useState(false)
   const [success, setSuccess] = useState(false)
   const [registered, setRegistered] = useState(true)
   const [nik, setNIK] = useState('')
   const [name, setName] = useState('')
+  const [barcode, setBarcode] = useState('')
   const [departementId, setDepartementId] = useState(null)
   const [country, setCountry] = useState(null)
   const inputPicture = useRef(null)
@@ -39,14 +45,15 @@ const IndexPage = () => {
     body.append('country', country)
     body.append('picture', inputPicture.current.files[0])
 
-    console.log(inputPicture.current.files[0])
-
     fetch(`${URL}/register`, {
       method: 'POST',
       body
     })
       .then(() => {
-        console.log('success')
+        setOpenSuccessDialog(true)
+        setTimeout(() => {
+          setOpenSuccessDialog(false)
+        }, 4000)
       })
       .catch(error => {
         console.log(error)
@@ -54,6 +61,14 @@ const IndexPage = () => {
   }, [nik, name, departementId, country])
 
   const checkNIK = useCallback(() => {
+    const canvas = createCanvas(150, 150, 'svg')
+    JsBarcode(canvas, nik ? nik : '29012343', {
+      format: 'EAN8',
+      background: 'rgba(255,255,255,0.2)',
+      lineColor: '#000000'
+    })
+    setBarcode(canvas.toDataURL('image/png'))
+
     fetch(`${URL}/nik/${nik}`)
       .then(result => result.json())
       .then(({ exist }) => {
@@ -67,14 +82,55 @@ const IndexPage = () => {
       })
   }, [nik])
 
-
-
   return (
     <React.Fragment>
       <SEO title="Register" />
-      <Grid container justify='center'>
-        <Grid md={4}>
-          <Paper className={classes.Paper}>
+      <div className='wrapper'>
+        <div className='card-form'>
+          <div className='card-list'>
+            <div className='card-item__wrapper'>
+              <div className='card-item__side -front'>
+                <div className='card-item__focus'></div>
+                <div className='card-item__cover'>
+                  <img className='card-item__bg' src='https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/5.jpeg' />
+                </div>
+                <div className='card-item__wrapper'>
+                  <div className='card-item__top'>
+                    <img className='card-item__chip' src='https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png' />
+                    <div className='card-item__type'>
+                      <img className='card-item__typeImg' src='https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png' alt />
+                    </div>
+                  </div>
+                  <label for='cardNumber' className='card-item__number'>
+
+                  </label>
+                  <div className='card-item__content'>
+                    <label for='cardName' className='card-item__info'>
+                      <div className='card-item__holder'>Card Holder</div>
+                      <div className='card-item__name'>Dea Pratiwi Putri</div>
+                    </label>
+                    <div class='card-item__date'>
+                      <img alt={nik} src={barcode} width='350' height='100' />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className='card-item__side -back'>
+                <div className='card-item__cover'>
+                  <img className='card-item__bg' src='https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/5.jpeg' />
+                </div>
+                <div className='card-item__band' />
+                <div className='card-item__cvv'>
+                  <div className='card-item__cvvTitle'>CVV</div>
+                  <div className='card-item__cvvBand' />
+                  <div className='card-item__type'>
+                    <img className='card-item__img' src='https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png' />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='card-form__inner'>
             <FormControl
               fullWidth
               margin='normal'>
@@ -134,18 +190,12 @@ const IndexPage = () => {
             <Button color='primary' variant='contained' className={classes.ButtonSubmit} disabled={!valid} onClick={onSubmit}>
               Submit
             </Button>
-          </Paper>
-        </Grid>
-      </Grid>
-      <Snackbar
-        open={success}
-        message={<p>User successfully registered</p>}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        autoHideDuration={6000}
-        onClose={() => setSuccess(false)} />
+          </div>
+        </div>
+      </div>
+      <SuccessDialog
+        open={openSuccessDialog}
+        onClose={() => setOpenSuccessDialog(false)} />
     </React.Fragment>
   )
 }
