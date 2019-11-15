@@ -34,5 +34,9 @@ export const Countries = [
   {
     value: 'belanda',
     text: 'Belanda'
+  },
+  {
+    value:'indonesia',
+    text : 'Indonesia'
   }
 ]

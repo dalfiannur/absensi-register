@@ -8,7 +8,8 @@ import { Departements } from '../data/Departements'
 const URL = 'https://barcode-attendance-system.herokuapp.com'
 const useStyle = makeStyles(theme => ({
   Paper: {
-    padding: 10
+    padding: 10,
+    marginTop: 100
   },
   ButtonSubmit: {
     margin: '10px auto',

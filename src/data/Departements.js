@@ -1,7 +1,7 @@
 export const Departements = [
   {
     id: 1,
-    name: 'WH RPMP'
+    name: 'WH RMPM'
   },
   {
     id: 2,
@@ -9,7 +9,7 @@ export const Departements = [
   },
   {
     id: 3,
-    name: 'PPPC & PREPARASI PLANT'
+    name: 'PPC & PREPARASI PLANT'
   },
   {
     id: 4,
@@ -46,5 +46,37 @@ export const Departements = [
   {
     id: 12,
     name: 'MS'
+  },
+  {
+    id: 13,
+    name: 'QC PLANT'
+  },
+  {
+    id: 14,
+    name: 'HR'
+  },
+  {
+    id: 15,
+    name: 'GA'
+  },
+  {
+    id: 16,
+    name: 'QA FS'
+  },
+  {
+    id: 17,
+    name: 'QA ANALITICAL CENTER'
+  },
+  {
+    id: 18,
+    name: 'QA SUPPLY CHAIN'
+  },
+  {
+    id: 19,
+    name: 'TAMU'
+  },
+  {
+    id: 20,
+    name: 'MANAJEMEN'
   },
 ]
