@@ -63,9 +63,8 @@ const IndexPage = () => {
   const checkNIK = useCallback(() => {
     const canvas = createCanvas(150, 150, 'svg')
     JsBarcode(canvas, nik ? nik : '29012343', {
-      format: 'EAN8',
-      background: 'rgba(255,255,255,0.2)',
-      lineColor: '#000000'
+      background: 'rgba(0,0,0,0.5)',
+      lineColor: '#ffffff'
     })
     setBarcode(canvas.toDataURL('image/png'))
 
@@ -110,7 +109,7 @@ const IndexPage = () => {
                       <div className='card-item__name'>Dea Pratiwi Putri</div>
                     </label>
                     <div class='card-item__date'>
-                      <img alt={nik} src={barcode} />
+                      <img alt={nik} src={barcode} style={{ width: '100%', height: 100 }} />
                     </div>
                   </div>
                 </div>

@@ -419,8 +419,7 @@ body {
     margin-left: auto;
     padding: 10px;
     display: inline-flex;
-    width: 200px;
-    height: 50px;
+    max-width: 175px;
     white-space: nowrap;
     flex-shrink: 0;
     cursor: pointer;
