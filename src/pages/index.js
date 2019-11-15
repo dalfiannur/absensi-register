@@ -64,8 +64,8 @@ const IndexPage = () => {
     const canvas = createCanvas(150, 150, 'svg')
     JsBarcode(canvas, nik ? nik : '29012343', {
       format: 'EAN8',
-      background: 'rgba(255,255,255,0.2)',
-      lineColor: '#000000'
+      background: 'rgba(0,0,0,0.5)',
+      lineColor: '#ffffff'
     })
     setBarcode(canvas.toDataURL('image/png'))
 
