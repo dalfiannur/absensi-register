@@ -7,6 +7,7 @@ import { Countries } from '../data/Countries'
 import { Departements } from '../data/Departements'
 import JsBarcode from 'jsbarcode'
 import { createCanvas } from 'canvas'
+import Card from '../components/Card'
 import './index.scss'
 
 const URL = 'https://barcode-attendance-system.herokuapp.com'
@@ -32,7 +33,7 @@ const IndexPage = () => {
   const [nik, setNIK] = useState('')
   const [name, setName] = useState('')
   const [barcode, setBarcode] = useState('')
-  const [departementId, setDepartementId] = useState(null)
+  const [departement, setDepartement] = useState(null)
   const [country, setCountry] = useState(null)
   const inputPicture = useRef(null)
 
@@ -41,30 +42,27 @@ const IndexPage = () => {
 
     body.append('nik', nik)
     body.append('name', name)
-    body.append('departementId', departementId)
-    body.append('country', country)
+    body.append('departementId', departement.id)
+    body.append('country', country.value)
     body.append('picture', inputPicture.current.files[0])
 
-    fetch(`${URL}/register`, {
-      method: 'POST',
-      body
-    })
-      .then(() => {
-        setOpenSuccessDialog(true)
-        setTimeout(() => {
-          setOpenSuccessDialog(false)
-        }, 4000)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }, [nik, name, departementId, country])
+    // fetch(`${URL}/register`, {
+    //   method: 'POST',
+    //   body
+    // })
+    //   .then(() => {
+    setOpenSuccessDialog(true)
+    // })
+    // .catch(error => {
+    //   console.log(error)
+    // })
+  }, [nik, name, departement, country])
 
   const checkNIK = useCallback(() => {
     const canvas = createCanvas(150, 150, 'svg')
     JsBarcode(canvas, nik ? nik : '29012343', {
-      background: 'rgba(0,0,0,0.5)',
-      lineColor: '#ffffff'
+      background: 'rgba(255,255,255)',
+      lineColor: '#000'
     })
     setBarcode(canvas.toDataURL('image/png'))
 
@@ -86,49 +84,7 @@ const IndexPage = () => {
       <SEO title="Register" />
       <div className='wrapper'>
         <div className='card-form'>
-          <div className='card-list'>
-            <div className='card-item__wrapper'>
-              <div className='card-item__side -front'>
-                <div className='card-item__focus'></div>
-                <div className='card-item__cover'>
-                  <img className='card-item__bg' src='https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/5.jpeg' />
-                </div>
-                <div className='card-item__wrapper'>
-                  <div className='card-item__top'>
-                    <img className='card-item__chip' src='https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png' />
-                    <div className='card-item__type'>
-                      <img className='card-item__typeImg' src='https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png' alt />
-                    </div>
-                  </div>
-                  <label for='cardNumber' className='card-item__number'>
-
-                  </label>
-                  <div className='card-item__content'>
-                    <label for='cardName' className='card-item__info'>
-                      <div className='card-item__holder'>Card Holder</div>
-                      <div className='card-item__name'>Dea Pratiwi Putri</div>
-                    </label>
-                    <div class='card-item__date'>
-                      <img alt={nik} src={barcode} style={{ width: '100%', height: 100 }} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className='card-item__side -back'>
-                <div className='card-item__cover'>
-                  <img className='card-item__bg' src='https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/5.jpeg' />
-                </div>
-                <div className='card-item__band' />
-                <div className='card-item__cvv'>
-                  <div className='card-item__cvvTitle'>CVV</div>
-                  <div className='card-item__cvvBand' />
-                  <div className='card-item__type'>
-                    <img className='card-item__img' src='https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png' />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Card departement={departement} country={country} name={name} barcode={barcode} />
           <div className='card-form__inner'>
             <FormControl
               fullWidth
@@ -156,13 +112,13 @@ const IndexPage = () => {
               <Select
                 labelId="input-departement-label"
                 id="input-departement"
-                value={departementId}
+                value={departement ? departement.id : null}
                 fullWidth
-                onChange={e => setDepartementId(e.target.value)}
+                onChange={e => setDepartement(e.target.value)}
               >
                 {
                   Departements.map(item => (
-                    <MenuItem value={item.id} key={item.name}>{item.name}</MenuItem>
+                    <MenuItem value={item} key={item.name}>{item.name}</MenuItem>
                   ))
                 }
               </Select>
@@ -174,13 +130,13 @@ const IndexPage = () => {
               <Select
                 labelId="input-country-label"
                 id="input-country"
-                value={country}
+                value={country ? country.value : null}
                 fullWidth
                 onChange={e => setCountry(e.target.value)}
               >
                 {
                   Countries.map(item => (
-                    <MenuItem value={item.value} key={item.value}>{item.text}</MenuItem>
+                    <MenuItem value={item} key={item.value}>{item.text}</MenuItem>
                   ))
                 }
               </Select>
@@ -194,6 +150,13 @@ const IndexPage = () => {
       </div>
       <SuccessDialog
         open={openSuccessDialog}
+        data={{
+          departement,
+          country,
+          nik,
+          name,
+          barcode
+        }}
         onClose={() => setOpenSuccessDialog(false)} />
     </React.Fragment>
   )

@@ -342,16 +342,37 @@ body {
     }
   }
 
-  &__name {
-    font-size: 18px;
+  &__name, &__departement, &__country {
+    
     line-height: 1;
     white-space: nowrap;
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     text-transform: uppercase;
+   
+  }
+  
+  &__name{
+    font-size: 18px;
     @media screen and (max-width: 480px) {
       font-size: 16px;
+    }
+  }
+
+  &__departement{
+    font-size: 16px;
+    margin-top:10px;
+    @media screen and (max-width: 480px) {
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  }
+
+  &__country{
+    font-size: 14px;
+    @media screen and (max-width: 480px) {
+      font-size: 12px;
     }
   }
   &__nameItem {
@@ -514,9 +535,11 @@ body {
 
 .card-list {
   margin-bottom: -130px;
+  max-width: 570px;
 
   @media screen and (max-width: 480px) {
     margin-bottom: -120px;
+    max-width: 480px;
   }
 }
 
