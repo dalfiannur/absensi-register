@@ -1,4 +1,5 @@
 import React from 'react'
+import Background from '../../images/card-background.png'
 
 /**
  * @param {Object} props
@@ -18,7 +19,7 @@ export default (props) => {
           <div className='card-item__side -front'>
             <div className='card-item__focus'></div>
             <div className='card-item__cover'>
-              <img className='card-item__bg' src='/card-background.png' />
+              <img className='card-item__bg' src={Background} />
             </div>
             <div className='card-item__wrapper'>
               <div className='card-item__top'>
