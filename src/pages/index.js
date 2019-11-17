@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useRef, useMemo } from "react"
+import React, { useState, useCallback, useRef, useEffect } from "react"
 import SEO from '../components/seo'
-import { Grid, Paper, TextField, FormControl, Select, MenuItem, InputLabel, Button, Snackbar } from '@material-ui/core'
+import { TextField, FormControl, Select, MenuItem, InputLabel, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import SuccessDialog from '../components/SuccessDialog'
 import { Countries } from '../data/Countries'
@@ -35,6 +35,7 @@ const IndexPage = () => {
   const [barcode, setBarcode] = useState('')
   const [departement, setDepartement] = useState(null)
   const [country, setCountry] = useState(null)
+  const [isMobile, setIsMobile] = useState(false)
   const inputPicture = useRef(null)
 
   const onSubmit = useCallback(() => {
@@ -66,25 +67,32 @@ const IndexPage = () => {
     })
     setBarcode(canvas.toDataURL('image/png'))
 
-    fetch(`${URL}/nik/${nik}`)
-      .then(result => result.json())
-      .then(({ exist }) => {
-        if (!exist) {
-          setRegistered(true)
-          setValid(true)
-        } else {
-          setRegistered(false)
-          setValid(false)
-        }
-      })
+    // fetch(`${URL}/nik/${nik}`)
+    //   .then(result => result.json())
+    //   .then(({ exist }) => {
+    //     if (!exist) {
+    setRegistered(true)
+    setValid(true)
+    //   } else {
+    //     setRegistered(false)
+    //     setValid(false)
+    //   }
+    // })
   }, [nik])
+
+  useEffect(() => {
+    const userAgent = window.navigator.userAgent
+    if (String(userAgent).includes('Mobile')) {
+      setIsMobile(true)
+    }
+  }, [])
 
   return (
     <React.Fragment>
       <SEO title="Register" />
       <div className='wrapper'>
         <div className='card-form'>
-          <Card departement={departement} country={country} name={name} barcode={barcode} />
+          <Card id={isMobile ? 'mobile' : 'desktop'} departement={departement} country={country} name={name} barcode={barcode} />
           <div className='card-form__inner'>
             <FormControl
               fullWidth

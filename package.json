@@ -20,11 +20,13 @@
     "gatsby-transformer-sharp": "^2.3.2",
     "html-to-image": "^0.1.1",
     "jsbarcode": "^3.11.0",
+    "mobile-detect": "^1.4.4",
     "node-sass": "^4.13.0",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "react-helmet": "^5.2.1"
+    "react-helmet": "^5.2.1",
+    "react-html-converter": "^0.3.2"
   },
   "devDependencies": {
     "prettier": "^1.18.2"
