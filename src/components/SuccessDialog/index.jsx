@@ -24,7 +24,7 @@ export default (props) => {
     if (String(userAgent).includes('Mobile')) {
       setIsMobile(true)
     }
-  }, [window])
+  }, [])
 
   return (
     <Dialog
