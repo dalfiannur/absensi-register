@@ -67,17 +67,17 @@ const IndexPage = () => {
     })
     setBarcode(canvas.toDataURL('image/png'))
 
-    // fetch(`${URL}/nik/${nik}`)
-    //   .then(result => result.json())
-    //   .then(({ exist }) => {
-    //     if (!exist) {
-    setRegistered(true)
-    setValid(true)
-    //   } else {
-    //     setRegistered(false)
-    //     setValid(false)
-    //   }
-    // })
+    fetch(`${URL}/nik/${nik}`)
+      .then(result => result.json())
+      .then(({ exist }) => {
+        if (!exist) {
+          setRegistered(true)
+          setValid(true)
+        } else {
+          setRegistered(false)
+          setValid(false)
+        }
+      })
   }, [nik])
 
   useEffect(() => {
