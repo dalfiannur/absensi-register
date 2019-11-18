@@ -47,16 +47,16 @@ const IndexPage = () => {
     body.append('country', country.value)
     body.append('picture', inputPicture.current.files[0])
 
-    // fetch(`${URL}/register`, {
-    //   method: 'POST',
-    //   body
-    // })
-    //   .then(() => {
-    setOpenSuccessDialog(true)
-    // })
-    // .catch(error => {
-    //   console.log(error)
-    // })
+    fetch(`${URL}/register`, {
+      method: 'POST',
+      body
+    })
+      .then(() => {
+        setOpenSuccessDialog(true)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }, [nik, name, departement, country])
 
   const checkNIK = useCallback(() => {
