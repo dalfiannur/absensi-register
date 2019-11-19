@@ -3,6 +3,7 @@ import SEO from '../components/seo'
 import { TextField, FormControl, Select, MenuItem, InputLabel, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import SuccessDialog from '../components/SuccessDialog'
+import CheckUserDialog from '../components/CheckUserDialog'
 import { Countries } from '../data/Countries'
 import { Departements } from '../data/Departements'
 import JsBarcode from 'jsbarcode'
@@ -26,6 +27,7 @@ const IndexPage = () => {
   const classes = useStyle()
 
   const [openSuccessDialog, setOpenSuccessDialog] = useState(false)
+  const [openUserCheckDialog, setOpenUserCheckDialog] = useState(false)
 
   const [valid, setValid] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -151,7 +153,10 @@ const IndexPage = () => {
             </FormControl>
             <input type='file' ref={inputPicture} />
             <Button color='primary' variant='contained' className={classes.ButtonSubmit} disabled={!valid} onClick={onSubmit}>
-              Submit
+              Signuo
+            </Button>
+            <Button color='secondary' variant='contained' className={classes.ButtonSubmit} onClick={() => setOpenUserCheckDialog(true)}>
+              Check User
             </Button>
           </div>
         </div>
@@ -166,6 +171,9 @@ const IndexPage = () => {
           barcode
         }}
         onClose={() => setOpenSuccessDialog(false)} />
+      <CheckUserDialog
+        open={openUserCheckDialog}
+        onClose={() => setOpenUserCheckDialog(false)} />
     </React.Fragment>
   )
 }

@@ -548,16 +548,12 @@ body {
     display: none;
   }
 
-  &-mobile-download {
+  &-mobile-download, &-mobile-download-check {
     width: 100%;
     overflow: auto;
   }
-  
-  &-desktop {
 
-  }
-
-  &-download {
+  &-download, &-download-check {
     visibility: hidden;
     width: 480px;
   }
