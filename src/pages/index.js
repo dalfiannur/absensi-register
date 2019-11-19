@@ -133,7 +133,7 @@ const IndexPage = () => {
               >
                 {
                   Departements.map(item => (
-                    <MenuItem value={item} key={item.name}>{item.name}</MenuItem>
+                    <MenuItem value={item} key={item.name}>{String(item.name).toUpperCase()}</MenuItem>
                   ))
                 }
               </Select>
@@ -151,7 +151,7 @@ const IndexPage = () => {
               >
                 {
                   Countries.map(item => (
-                    <MenuItem value={item} key={item.value}>{item.text}</MenuItem>
+                    <MenuItem value={item} key={item.value}>{String(item.text).toUpperCase()}</MenuItem>
                   ))
                 }
               </Select>
