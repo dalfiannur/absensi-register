@@ -43,6 +43,7 @@ const IndexPage = () => {
   const [departement, setDepartement] = useState(null)
   const [country, setCountry] = useState(null)
   const [isMobile, setIsMobile] = useState(false)
+  const [image, setImage] = useState(false)
   const inputPicture = useRef(null)
 
   const onSubmit = useCallback(() => {
@@ -79,10 +80,8 @@ const IndexPage = () => {
       .then(({ exist }) => {
         if (!exist) {
           setRegistered(true)
-          setValid(true)
         } else {
           setRegistered(false)
-          setValid(false)
         }
       })
   }, [nik])
@@ -93,6 +92,19 @@ const IndexPage = () => {
       setIsMobile(true)
     }
   }, [])
+
+  useEffect(() => {
+    const _nik = nik === '' ? false : true
+    const _name = name === '' ? false : true
+    const _departement = departement ? true : false
+    const _country = country ? true : false
+
+    if (_nik && _name && _departement && _country && registered && image) {
+      setValid(true)
+    } else {
+      setValid(false)
+    }
+  }, [nik, name, departement, country, image])
 
   return (
     <React.Fragment>
@@ -105,7 +117,7 @@ const IndexPage = () => {
               fullWidth
               margin='normal'>
               <TextField
-                error={!valid}
+                error={!registered}
                 fullWidth
                 onChange={e => setNIK(e.target.value)}
                 label='NIK'
@@ -156,7 +168,7 @@ const IndexPage = () => {
                 }
               </Select>
             </FormControl>
-            <input type='file' ref={inputPicture} className={classes.ImageUpload} />
+            <input type='file' ref={inputPicture} className={classes.ImageUpload} onChangeCapture={() => setImage(true)} />
             <Button color='primary' variant='contained' className={classes.ButtonSubmit} disabled={!valid} onClick={onSubmit}>
               Sign Up
             </Button>
