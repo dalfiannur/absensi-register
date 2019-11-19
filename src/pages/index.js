@@ -20,7 +20,7 @@ const useStyle = makeStyles(theme => ({
   ButtonSubmit: {
     margin: '10px auto',
     display: 'block',
-    width: 120
+    width: 160
   },
   ImageUpload: {
     marginTop: 15,
