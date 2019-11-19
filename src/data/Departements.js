@@ -49,7 +49,7 @@ export const Departements = [
   },
   {
     id: 13,
-    name: 'QC PLANT'
+    name: 'QA PLANT'
   },
   {
     id: 14,
@@ -61,7 +61,7 @@ export const Departements = [
   },
   {
     id: 16,
-    name: 'QA FS'
+    name: 'QFS'
   },
   {
     id: 17,
