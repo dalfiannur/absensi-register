@@ -19,7 +19,12 @@ const useStyle = makeStyles(theme => ({
   },
   ButtonSubmit: {
     margin: '10px auto',
-    display: 'block'
+    display: 'block',
+    width: 120
+  },
+  ImageUpload: {
+    marginTop: 15,
+    marginBottom: 15
   }
 }))
 
@@ -151,9 +156,9 @@ const IndexPage = () => {
                 }
               </Select>
             </FormControl>
-            <input type='file' ref={inputPicture} />
+            <input type='file' ref={inputPicture} className={classes.ImageUpload} />
             <Button color='primary' variant='contained' className={classes.ButtonSubmit} disabled={!valid} onClick={onSubmit}>
-              Signuo
+              Sign Up
             </Button>
             <Button color='secondary' variant='contained' className={classes.ButtonSubmit} onClick={() => setOpenUserCheckDialog(true)}>
               Check User
