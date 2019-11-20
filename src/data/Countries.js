@@ -1,4 +1,4 @@
-export const Countries = [
+const Countries = [
   {
     value: 'jepang',
     text: 'Jepang'
@@ -40,3 +40,9 @@ export const Countries = [
     text : 'Indonesia'
   }
 ]
+
+export default Countries.sort((a, b) => {
+  const x = a.name.toLowerCase()
+  const y = b.name.toLowerCase()
+  return x < y ? -1 : x > y ? 1 : 0
+})

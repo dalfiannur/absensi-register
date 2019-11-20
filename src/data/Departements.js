@@ -1,4 +1,4 @@
-export const Departements = [
+const Departements = [
   {
     id: 1,
     name: 'WH RMPM'
@@ -87,4 +87,14 @@ export const Departements = [
     id: 22,
     name: 'CMD'
   },
+  {
+    id: 23,
+    name: 'Fasilitator'
+  }
 ]
+
+export default Departements.sort((a, b) => {
+  const x = a.name.toLowerCase()
+  const y = b.name.toLowerCase()
+  return x < y ? -1 : x > y ? 1 : 0
+})
