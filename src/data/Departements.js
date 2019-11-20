@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const Departements = [
   {
     id: 1,
@@ -93,8 +95,4 @@ const Departements = [
   }
 ]
 
-export default Departements.sort((a, b) => {
-  const x = a.name.toLowerCase()
-  const y = b.name.toLowerCase()
-  return x < y ? -1 : x > y ? 1 : 0
-})
+export default _.orderBy(Departements, ['name'], ['asc'])

@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const Countries = [
   {
     value: 'jepang',
@@ -36,13 +38,9 @@ const Countries = [
     text: 'Belanda'
   },
   {
-    value:'indonesia',
-    text : 'Indonesia'
+    value: 'indonesia',
+    text: 'Indonesia'
   }
 ]
 
-export default Countries.sort((a, b) => {
-  const x = a.name.toLowerCase()
-  const y = b.name.toLowerCase()
-  return x < y ? -1 : x > y ? 1 : 0
-})
+export default _.orderBy(Countries, ['text'], ['asc'])
